@@ -655,7 +655,7 @@ class Manager extends Abstract {
           .then(this.backend.goToDirectory.bind(this.backend))
           .then(this.backend.depInstall.bind(this.backend))
           .then(this.backend.createConfig.bind(this.backend))
-          .then(this.backend.dockerComposeUp.bind(this.backend))
+          //.then(this.backend.dockerComposeUp.bind(this.backend))
           .then(this.backend.importElasticSearch.bind(this.backend))
           .then(this.backend.runDevEnvironment.bind(this.backend))
       } else {
@@ -663,7 +663,7 @@ class Manager extends Abstract {
           .then(this.backend.goToDirectory.bind(this.backend))
           .then(this.backend.depInstall.bind(this.backend))
           .then(this.backend.createConfig.bind(this.backend))
-          .then(this.backend.dockerComposeUp.bind(this.backend))
+          //.then(this.backend.dockerComposeUp.bind(this.backend))
           .then(this.backend.restoreElasticSearch.bind(this.backend))
           .then(this.backend.migrateElasticSearch.bind(this.backend))
           .then(this.backend.cloneMagentoSampleData.bind(this.backend))
