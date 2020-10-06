@@ -139,7 +139,7 @@ class Backend extends Abstract {
 
       Message.info(`Cloning backend into '${backendDir}'...`)
 
-      if (shell.exec(`${gitPath} clone ${STOREFRONT_BACKEND_GIT_URL} '${backendDir}' > ${Abstract.infoLogStream} 2>&1`).code !== 0) {
+      if (shell.exec(`${gitPath} clone ${STOREFRONT_BACKEND_GIT_URL} ${backendDir} > ${Abstract.infoLogStream} 2>&1`).code !== 0) {
         reject(new Error(`Can't clone backend into '${backendDir}'.`))
       }
 
