@@ -650,12 +650,13 @@ class Manager extends Abstract {
     if (this.answers.is_remote_backend === false) {
       Abstract.wasLocalBackendInstalled = true
       if (this.answers.m2_api_oauth2 === true) {
-        return this.backend.validateM2Integration()
-          .then(this.backend.cloneRepository.bind(this.backend))
+        // return this.backend.validateM2Integration()
+        return this.backend.cloneRepository()
+          // .then(this.backend.cloneRepository.bind(this.backend))
           .then(this.backend.goToDirectory.bind(this.backend))
           .then(this.backend.depInstall.bind(this.backend))
           .then(this.backend.createConfig.bind(this.backend))
-          //.then(this.backend.dockerComposeUp.bind(this.backend))
+          // .then(this.backend.dockerComposeUp.bind(this.backend))
           .then(this.backend.importElasticSearch.bind(this.backend))
           .then(this.backend.runDevEnvironment.bind(this.backend))
       } else {
@@ -663,7 +664,7 @@ class Manager extends Abstract {
           .then(this.backend.goToDirectory.bind(this.backend))
           .then(this.backend.depInstall.bind(this.backend))
           .then(this.backend.createConfig.bind(this.backend))
-          //.then(this.backend.dockerComposeUp.bind(this.backend))
+          // .then(this.backend.dockerComposeUp.bind(this.backend))
           .then(this.backend.restoreElasticSearch.bind(this.backend))
           .then(this.backend.migrateElasticSearch.bind(this.backend))
           .then(this.backend.cloneMagentoSampleData.bind(this.backend))
@@ -733,7 +734,7 @@ let questions = [
     type: 'confirm',
     name: 'is_remote_backend',
     message: `Would you like to use ${STOREFRONT_REMOTE_BACKEND_URL} as the backend?`,
-    default: true
+    default: false
   },
   {
     type: 'input',
@@ -755,7 +756,7 @@ let questions = [
     type: 'input',
     name: 'backend_dir',
     message: 'Please provide path for installing backend locally',
-    default: '../vue-storefront-api',
+    default: '../vue-tomi-api',
     when: function (answers) {
       return answers.is_remote_backend === false
     },
@@ -778,8 +779,8 @@ let questions = [
     name: 'images_endpoint',
     message: 'Choose path for images endpoint',
     choices: [
-      `${STOREFRONT_REMOTE_BACKEND_URL}/img/`,
       'http://localhost:8080/img/',
+      `${STOREFRONT_REMOTE_BACKEND_URL}/img/`,
       'Custom url'
     ],
     when: function (answers) {
@@ -790,7 +791,7 @@ let questions = [
     type: 'input',
     name: 'images_endpoint',
     message: 'Please provide path for images endpoint',
-    default: `${STOREFRONT_REMOTE_BACKEND_URL}/img/`,
+    default: 'http://localhost:8080/img/',
     when: function (answers) {
       let isProvideByYourOwn = answers.images_endpoint === 'Custom url'
 
@@ -815,7 +816,7 @@ let questions = [
     type: 'input',
     name: 'm2_url',
     message: 'Please provide your Magento url',
-    default: 'http://demo-magento2.vuestorefront.io',
+    default: 'http://magento.vip',
     when: function (answers) {
       return answers.is_remote_backend === false
     }
@@ -824,7 +825,7 @@ let questions = [
     type: 'confirm',
     name: 'm2_api_oauth2',
     message: `Would You like to perform initial data import from Magento2 instance?`,
-    default: false,
+    default: true,
     when: function (answers) {
       return answers.is_remote_backend === false
     }
@@ -833,7 +834,7 @@ let questions = [
     type: 'input',
     name: 'm2_api_url',
     message: 'Please provide the URL to your Magento rest API',
-    default: 'http://demo-magento2.vuestorefront.io/rest',
+    default: 'http://magento.vip/rest',
     when: function (answers) {
       return answers.m2_api_oauth2 === true
     },
@@ -855,7 +856,7 @@ let questions = [
     type: 'input',
     name: 'm2_api_consumer_key',
     message: 'Please provide your consumer key',
-    default: 'byv3730rhoulpopcq64don8ukb8lf2gq',
+    default: 'ca6txhgg9van4kwv6qi5dvu79a3pjzcx',
     when: function (answers) {
       return answers.m2_api_oauth2 === true
     }
@@ -864,7 +865,7 @@ let questions = [
     type: 'input',
     name: 'm2_api_consumer_secret',
     message: 'Please provide your consumer secret',
-    default: 'u9q4fcobv7vfx9td80oupa6uhexc27rb',
+    default: 'hr26noeataaa04wf1vdoe0nfh89618ai',
     when: function (answers) {
       return answers.m2_api_oauth2 === true
     }
@@ -873,7 +874,7 @@ let questions = [
     type: 'input',
     name: 'm2_api_access_token',
     message: 'Please provide your access token',
-    default: '040xx3qy7s0j28o3q0exrfop579cy20m',
+    default: '0822rp89j198qq4sq195lm0bsfa7c4s2',
     when: function (answers) {
       return answers.m2_api_oauth2 === true
     }
@@ -882,7 +883,7 @@ let questions = [
     type: 'input',
     name: 'm2_api_access_token_secret',
     message: 'Please provide your access token secret',
-    default: '7qunl3p505rubmr7u1ijt7odyialnih9',
+    default: 'gyh2qlks23a8r727bs1fwde7eoz3t48h',
     when: function (answers) {
       return answers.m2_api_oauth2 === true
     }
